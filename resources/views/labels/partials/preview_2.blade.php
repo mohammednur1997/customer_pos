@@ -14,12 +14,12 @@
 
 					{{-- Business Name --}}
 					@if(!empty($print['business_name']))
-						<b style="display: block !important; font-size:13px">{{$business_name}}</b>
+						<b style="display: block !important; font-size: {{$print['business_name_size']}}px">{{$business_name}}</b>
 					@endif
 
 					{{-- Product Name --}}
 					@if(!empty($print['name']))
-						<span style="display: block !important; font-size: 12px">
+						<span style="display: block !important; font-size: {{$print['name_size']}}px">
 							{{$page_product->product_actual_name}}
 
 							@if(!empty($print['lot_number']) && !empty($page_product->lot_number))
@@ -39,7 +39,7 @@
 
 					{{-- Price --}}
 					@if(!empty($print['price']))
-					<span style="font-size: 11px;">
+					<span style="font-size: {{$print['price_size']}}px;">
 						@lang('lang_v1.price'):
 						<b>{{session('currency')['symbol'] ?? ''}}
 
@@ -51,19 +51,9 @@
 						@endif</b>
 					</span>
 					@endif
-<br>
-
-@if(!empty($print['packing_date']) && !empty($page_product->packing_date))
-						<span style="font-size: 12px">
-							<b>@lang('lang_v1.packing_date'):</b>
-							{{$page_product->packing_date}}
-						</span>
-					@endif
-
-
 					@if(!empty($print['exp_date']) && !empty($page_product->exp_date))
 						<br>
-						<span style="font-size: 12px">
+						<span style="font-size: {{$print['exp_date_size']}}px">
 							<b>@lang('product.exp_date'):</b>
 							{{$page_product->exp_date}}
 						</span>
@@ -71,12 +61,19 @@
 						<br>
 						@endif
 					@endif
-					
+
+					@if(!empty($print['packing_date']) && !empty($page_product->packing_date))
+						<span style="font-size: {{$print['packing_date_size']}}px">
+							<b>@lang('lang_v1.packing_date'):</b>
+							{{$page_product->packing_date}}
+						</span>
+					@endif
+					<br>
 
 					{{-- Barcode --}}
 					<img style="max-width:90% !important;height: {{$barcode_details->height*0.24}}in !important; display: block;" src="data:image/png;base64,{{DNS1D::getBarcodePNG($page_product->sub_sku, $page_product->barcode_type, 1,30, array(0, 0, 0), false)}}">
 					
-					<span style="font-size: 8px !important">
+					<span style="font-size: 10px !important">
 						{{$page_product->sub_sku}}
 					</span>
 				</div>
@@ -92,7 +89,9 @@
 
 <style type="text/css">
 
-	
+	td{
+		border: 1px dotted lightgray;
+	}
 	@media print{
 		
 		table{

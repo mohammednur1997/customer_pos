@@ -5,9 +5,9 @@
         <div class="login-form-headding">
             <div>
                 <h2>
-                    Login to BLESS ERP
+                    @lang('lang_v1.login_heading_brand')
                 </h2>
-                <p></p>
+                <p>@lang('lang_v1.login_heading')</p>
             </div>
 {{--           <div>--}}
 {{--            <img src="{{ asset('/logo.png') }}" alt="" style="width: 200px">--}}

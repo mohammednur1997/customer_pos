@@ -5,9 +5,9 @@
         <div class="login-form-headding">
             <div>
                 <h2>
-                    @lang('lang_v1.login_heading_brand')
+                    Login
                 </h2>
-                <p>@lang('lang_v1.login_heading')</p>
+                <p></p>
             </div>
 {{--           <div>--}}
 {{--            <img src="{{ asset('/logo.png') }}" alt="" style="width: 200px">--}}

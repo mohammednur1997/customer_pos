@@ -1,20 +1,6 @@
 <table style="width:100%;">
-	<thead>
-		<tr>
-			<td>
-				<p class="text-right">
-					<small class="text-muted-imp">
-						@if(!empty($receipt_details->invoice_no_prefix))
-							{!! $receipt_details->invoice_no_prefix !!}
-						@endif
 
-						{{$receipt_details->invoice_no}}
-					</small>
-				</p>
-			</td>
-		</tr>
-	</thead>
-
+<br>
 	<tbody>
 		<tr>
 			@if(empty($receipt_details->letter_head))
@@ -50,7 +36,23 @@
 
 	<div class="col-md-6 invoice-col width-50">
 
-		<div class="text-right font-23">
+		<div>
+		<!-- Logo -->
+		<br>
+		<br>
+		@if(!empty($receipt_details->logo))
+			<img style="max-height: 75px; width: auto;" src="{{$receipt_details->logo}}" class="img left-block">
+			<br/>
+		@endif
+		
+		<br>
+		<br>
+		</div>
+
+	
+		
+
+		<div class="text-right font-16">
 			@if(!empty($receipt_details->invoice_no_prefix))
 				<span class="pull-left">{!! $receipt_details->invoice_no_prefix !!}</span>
 			@endif
@@ -58,37 +60,12 @@
 			{{$receipt_details->invoice_no}}
 		</div>
 
-		<!-- Total Due-->
-		@if(!empty($receipt_details->total_due) && !empty($receipt_details->total_due_label))
-			<div class="bg-light-blue-active text-right font-23 padding-5">
-				<span class="pull-left bg-light-blue-active">
-					{!! $receipt_details->total_due_label !!}
-				</span>
-
-				{{$receipt_details->total_due}}
-			</div>
-		@endif
-
-		@if(!empty($receipt_details->all_due))
-			<div class="bg-light-blue-active text-right font-23 padding-5">
-				<span class="pull-left bg-light-blue-active">
-					{!! $receipt_details->all_bal_label !!}
-				</span>
-
-				{{$receipt_details->all_due}}
-			</div>
-		@endif
 		
-		<!-- Total Paid-->
-		@if(!empty($receipt_details->total_paid))
-			<div class="text-right font-23 ">
-				<span class="pull-left">{!! $receipt_details->total_paid_label !!}</span>
-				{{$receipt_details->total_paid}}
-			</div>
-		@endif
+		
+		
 		<!-- Date-->
 		@if(!empty($receipt_details->date_label))
-			<div class="text-right font-23 ">
+			<div class="text-right font-16 ">
 				<span class="pull-left">
 					{{$receipt_details->date_label}}
 				</span>
@@ -96,15 +73,7 @@
 				{{$receipt_details->invoice_date}}
 			</div>
 		@endif
-		@if(!empty($receipt_details->due_date_label))
-			<div class="text-right font-23 ">
-				<span class="pull-left">
-					{{$receipt_details->due_date_label}}
-				</span>
-
-				{{$receipt_details->due_date ?? ''}}
-			</div>
-		@endif
+		
 
 		<div class="word-wrap">
 			@if(!empty($receipt_details->customer_label))
@@ -160,14 +129,16 @@
 
 	<div class="col-md-6 invoice-col width-50 ">
 		@if(empty($receipt_details->letter_head))
-		<!-- Logo -->
-		@if(!empty($receipt_details->logo))
-			<img style="max-height: 120px; width: auto;" src="{{$receipt_details->logo}}" class="img center-block">
-			<br/>
-		@endif
+		
 
 		<!-- Shop & Location Name  -->
-		<p>
+		
+		
+			
+
+			<p>
+			
+			
 			@if(!empty($receipt_details->display_name))
 				<br/>{{$receipt_details->display_name}}
 			@endif
@@ -348,7 +319,9 @@
 						@endphp
 					@endif
 					<td style="background-color: #357ca5 !important; color: white !important; width: {{$p_width}}% !important">
-						{{$receipt_details->table_product_label}}
+						Product 
+						<br>
+						السلع
 					</td>
 
 					@if($receipt_details->show_cat_code == 1)
@@ -359,22 +332,22 @@
 						{{$receipt_details->table_qty_label}}
 					</td>
 					<td style="background-color: #357ca5 !important; color: white !important;width: 10% !important;">
-						{{$receipt_details->table_unit_price_label}}
+						Unit Price <br>  سعر الوحدة
 					</td>
 					<td style="background-color: #357ca5 !important; color: white !important;width: 10% !important;">
-						{{$receipt_details->discounted_unit_price_label}}
-					</td>
-					<td style="background-color: #357ca5 !important; color: white !important;width: 8% !important;">
 						{{$receipt_details->line_discount_label}}
 					</td>
+					
+					
+
 					<td style="background-color: #357ca5 !important; color: white !important;width: 10% !important;">
 						{{$receipt_details->line_tax_label}}
 					</td>
 					<td style="background-color: #357ca5 !important; color: white !important;width: 10% !important;">
-						{{$receipt_details->table_unit_price_label}} (@lang('product.inc_of_tax'))
+						Unit Price (inc. tax) <br> سعر الوحدة  شامل ضريبة
 					</td>
-					<td style="background-color: #357ca5 !important; color: white !important;width: 10% !important;">
-						{{$receipt_details->table_subtotal_label}}
+					<td style="background-color: #357ca5 !important; color: white !important;width: 20% !important;">
+						Subtotal: <br> لقيمة االجمالية :
 					</td>
 				</tr>
 			</thead>
@@ -431,11 +404,9 @@
                             </small>
                             @endif
 						</td>
+						
 						<td class="text-right">
 							{{$line['unit_price_before_discount']}}
-						</td>
-						<td class="text-right">
-							{{$line['unit_price_inc_tax']}} 
 						</td>
 						<td class="text-right">
 							{{$line['total_line_discount'] ?? 0}}
@@ -443,6 +414,11 @@
 							 	({{$line['line_discount_percent']}}%)
 							@endif
 						</td>
+
+						
+
+
+
 						<td class="text-right">
 							{{$line['tax']}} {{$line['tax_name']}}
 						</td>
@@ -512,8 +488,7 @@
     					<td>&nbsp;</td>
     					<td>&nbsp;</td>
     					<td>&nbsp;</td>
-    					<td>&nbsp;</td>
-    					<td>&nbsp;</td>
+    					
     					@if($receipt_details->show_cat_code == 1)
     						<td>&nbsp;</td>
     					@endif
@@ -538,7 +513,8 @@
 				@endforeach
 			@endif
 		</table>
-		
+		<br>
+		<br>
 		<b class="pull-left">@lang('lang_v1.authorized_signatory')</b>
 	</div>
 
@@ -548,7 +524,7 @@
 				@if(!empty($receipt_details->total_quantity_label))
 					<tr >
 						<td style="width:50%">
-							{!! $receipt_details->total_quantity_label !!}
+							Total Quantity: <br> الكمية الإجمالية :
 						</td>
 						<td class="text-right">
 							{{$receipt_details->total_quantity}}
@@ -568,7 +544,7 @@
 				@endif
 				<tr >
 					<td style="width:50%">
-						{!! $receipt_details->subtotal_label !!}
+						Subtotal: <br> لقيمة االجمالية :
 					</td>
 					<td class="text-right">
 						{{$receipt_details->subtotal}}
@@ -686,8 +662,8 @@
 				
 				<!-- Total -->
 				<tr>
-					<th style="background-color: #357ca5 !important; color: white !important" class="font-23 padding-10">
-						{!! $receipt_details->total_label !!}
+					<th style="background-color: #357ca5 !important; color: white !important" class="font-21 padding-10">
+						Total: <br> المجموع:
 					</th>
 					<td class="text-right font-23 padding-10" style="background-color: #357ca5 !important; color: white !important">
 						{{$receipt_details->total}}

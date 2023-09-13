@@ -2,10 +2,25 @@
 
 <div class="row" style="color: #000000 !important;">
 	@if(empty($receipt_details->letter_head))
+		
 		<!-- Logo -->
+		<div style= " display: inline-block;">
 		@if(!empty($receipt_details->logo))
-			<img style="max-height: 120px; width: auto;" src="{{$receipt_details->logo}}" class="img img-responsive center-block">
+			<img style="max-height: 80px; width: auto;" src="{{$receipt_details->logo}}" class="img img-responsive">
 		@endif
+		</div>
+		
+		<!-- Title of receipt -->
+			<div style= "display: inline-block; float:right; padding-right:20px;">
+			@if(!empty($receipt_details->invoice_heading))
+				<h3 >
+					{!! $receipt_details->invoice_heading !!}
+				</h3>
+			@endif
+
+		</div>
+
+
 
 		<!-- Header text -->
 		@if(!empty($receipt_details->header_text))
@@ -15,8 +30,8 @@
 		@endif
 
 		<!-- business information here -->
-		<div class="col-xs-12 text-center">
-			<h2 class="text-center">
+		<div class="col-xs-12 text-right">
+			<h2 class="text-right">
 				<!-- Shop & Location Name  -->
 				@if(!empty($receipt_details->display_name))
 					{{$receipt_details->display_name}}
@@ -43,6 +58,8 @@
 				<br>{{ $receipt_details->location_custom_fields }}
 			@endif
 			</p>
+
+
 			<p>
 			@if(!empty($receipt_details->sub_heading_line1))
 				{{ $receipt_details->sub_heading_line1 }}
@@ -70,12 +87,7 @@
 			@endif
 			</p>
 
-			<!-- Title of receipt -->
-			@if(!empty($receipt_details->invoice_heading))
-				<h3 class="text-center">
-					{!! $receipt_details->invoice_heading !!}
-				</h3>
-			@endif
+			
 		</div>
 	@else
 		<div class="col-xs-12 text-center">
@@ -148,7 +160,7 @@
 				@endif
 			</span>
 
-			<span class="pull-right text-left">
+			<span class="pull-right text-center">
 				<b>{{$receipt_details->date_label}}</b> {{$receipt_details->invoice_date}}
 
 				@if(!empty($receipt_details->due_date_label))
@@ -619,14 +631,14 @@
 	</div>
 	@endif
 	@if($receipt_details->show_barcode || $receipt_details->show_qr_code)
-		<div class="@if(!empty($receipt_details->footer_text)) col-xs-4 @else col-xs-12 @endif text-center">
+		<div class="@if(!empty($receipt_details->footer_text)) col-xs-4 @else col-xs-12 @endif text-right">
 			@if($receipt_details->show_barcode)
 				{{-- Barcode --}}
-				<img class="center-block" src="data:image/png;base64,{{DNS1D::getBarcodePNG($receipt_details->invoice_no, 'C128', 2,30,array(39, 48, 54), true)}}">
+				<img class="right-block" src="data:image/png;base64,{{DNS1D::getBarcodePNG($receipt_details->invoice_no, 'C128', 2,30,array(39, 48, 54), true)}}">
 			@endif
 			
 			@if($receipt_details->show_qr_code && !empty($receipt_details->qr_code_text))
-				<img class="center-block mt-5" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
+				<img class="right-block mt-5" src="data:image/png;base64,{{DNS2D::getBarcodePNG($receipt_details->qr_code_text, 'QRCODE', 3, 3, [39, 48, 54])}}">
 			@endif
 		</div>
 	@endif

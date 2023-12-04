@@ -6,7 +6,7 @@
     </div>
 
     <!-- 1st part: Prefix (here any prefix can be entered), user can leave it blank also if prefix not supported by scale.
-	2nd part: Dropdown list from 1 to 9 for Barcode 0
+	2nd part: Dropdown list from 1 to 20 for Barcode 0
 	3rd part: Dropdown list from 1 to 5 for Quantity 
 	4th part: Dropdown list from 1 to 4 for Quantity decimals. -->
 
@@ -22,7 +22,7 @@
         <div class="form-group addProduct_form">
             {!! Form::label('product_sku_length', __('lang_v1.weighing_product_sku_length') . ':') !!}
             
-            {!! Form::select('weighing_scale_setting[product_sku_length]', [1,2,3,4,5,6,7,8,9], isset($weighing_scale_setting['product_sku_length']) ? $weighing_scale_setting['product_sku_length'] : 4, ['class' => 'form-control select2', 'style' => 'width: 100%;', 'id' => 'product_sku_length']); !!}
+            {!! Form::select('weighing_scale_setting[product_sku_length]', [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], isset($weighing_scale_setting['product_sku_length']) ? $weighing_scale_setting['product_sku_length'] : 4, ['class' => 'form-control select2', 'style' => 'width: 100%;', 'id' => 'product_sku_length']); !!}
         </div>
     </div>
 

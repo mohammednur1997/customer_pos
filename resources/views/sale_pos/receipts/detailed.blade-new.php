@@ -324,7 +324,9 @@
 						السلع
 					</td>
 
-					
+					@if($receipt_details->show_cat_code == 1)
+						<td style="background-color: #357ca5 !important; color: white !important; width: 10% !important;">{{$receipt_details->cat_code_label}}</td>
+					@endif
 					
 					<td style="background-color: #357ca5 !important; color: white !important;width: 10% !important;">
 						{{$receipt_details->table_qty_label}}
@@ -385,7 +387,13 @@
                             @endif
                         </td>
 
-						
+						@if($receipt_details->show_cat_code == 1)
+	                        <td>
+	                        	@if(!empty($line['cat_code']))
+	                        		{{$line['cat_code']}}
+	                        	@endif
+	                        </td>
+	                    @endif
 
 						<td class="text-right">
 							{{$line['quantity']}} {{$line['units']}}
@@ -412,7 +420,7 @@
 
 
 						<td class="text-right">
-							{{$line['tax']}}
+							{{$line['tax']}} {{$line['tax_name']}}
 						</td>
 						<td class="text-right">
 							{{$line['unit_price_inc_tax']}}
@@ -678,7 +686,9 @@
         <!-- tax -->
         @if(!empty($receipt_details->taxes))
         	<table class="table table-slim table-bordered">
-        		
+        		<tr>
+        			<th colspan="2" class="text-center">{{$receipt_details->tax_summary_label}}</th>
+        		</tr>
         		@foreach($receipt_details->taxes as $key => $val)
         			<tr>
         				<td class="text-center"><b>{{$key}}</b></td>

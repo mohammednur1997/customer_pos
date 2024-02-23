@@ -1529,7 +1529,7 @@ function pos_product_row(variation_id = null, purchase_line_id = null, weighing_
                     qty_element = $(this).find('.pos_quantity');
                     var qty = __read_number(qty_element);
                   //  __write_number(qty_element, qty + 1);
-                    qty_element.change();
+                   // qty_element.change();
 
                     round_row_to_iraqi_dinnar($(this));
 
